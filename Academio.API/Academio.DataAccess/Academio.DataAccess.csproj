@@ -11,12 +11,6 @@
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
   </ItemGroup>
-  
-  <ItemGroup>
-    <Folder Include="Abstractions\" />
-    <Folder Include="Entities\" />
-    <Folder Include="Repositories\" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Academio.DB\Academio.DB.sqlproj" />
