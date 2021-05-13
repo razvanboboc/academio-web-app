@@ -59,6 +59,7 @@
     <Folder Include="dbo" />
     <Folder Include="dbo\Procedures" />
     <Folder Include="dbo\Tables" />
+    <Folder Include="dbo\Procedures\User" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\User.sql" />
@@ -74,5 +75,8 @@
     <Build Include="dbo\Tables\PostTag.sql" />
     <Build Include="dbo\Tables\Flair.sql" />
     <Build Include="dbo\Tables\PostFlair.sql" />
+    <Build Include="dbo\Procedures\User\spAddUser.sql" />
+    <Build Include="dbo\Procedures\User\spGetAllUsers.sql" />
+    <Build Include="dbo\Procedures\User\spGetUserById.sql" />
   </ItemGroup>
 </Project>
