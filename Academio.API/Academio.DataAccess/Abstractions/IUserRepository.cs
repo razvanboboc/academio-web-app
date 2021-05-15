@@ -9,5 +9,7 @@ namespace Academio.DataAccess.Abstractions
     public interface IUserRepository<User> : IBaseRepository<User>
     {
         Task<User> ChangeAccountPreferences(DynamicParameters dynamicParameters, string storedProcedure);
+        Task<User> GetUserByEmail(DynamicParameters dynamicParameters, string storedProcedure);
+
     }
 }

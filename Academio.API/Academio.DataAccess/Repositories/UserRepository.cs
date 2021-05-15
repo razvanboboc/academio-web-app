@@ -40,6 +40,16 @@ namespace Academio.DataAccess.Repositories
 
             }
         }
+        public async Task<User> GetUserByEmail(DynamicParameters dynamicParameters, string storedProcedure)
+        {
+            using (var connection = _dbContext.connection())
+            {
+                connection.Open();
 
+                var user = connection.QuerySingleOrDefaultAsync<User>(storedProcedure, dynamicParameters, commandType: CommandType.StoredProcedure);
+
+                return await user;
+            }
+        }
     }
 }

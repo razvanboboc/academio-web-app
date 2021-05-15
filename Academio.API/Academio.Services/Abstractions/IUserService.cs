@@ -1,5 +1,6 @@
 ﻿using Academio.DataAccess.Entities;
 using Academio.DTOs.DTOs;
+using Academio.DTOs.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,5 +16,7 @@ namespace Academio.Services.Abstractions
         Task<IEnumerable<UserDto>> GetAll();
         Task<User> Get(int id);
         Task<User> Delete(int id);
+        Task<SessionModel> Authenticate(UserDto userDto);
+        Task<User> GetUserByEmailOrUsername(UserDto userDto);
     }
 }
