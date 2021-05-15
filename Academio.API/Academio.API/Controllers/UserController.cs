@@ -1,5 +1,6 @@
 ﻿using Academio.DTOs.DTOs;
 using Academio.Services.Abstractions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -14,7 +15,22 @@ namespace Academio.API.Controllers
         {
             this._userService = userService;
         }
-        
+
+        [AllowAnonymous]
+        [HttpPost("authenticate")]
+        public async Task<IActionResult> Authenticate([FromBody]UserDto userDto)
+        {
+
+            var sessionModel = await _userService.Authenticate(userDto);
+            if (sessionModel is null)
+            {
+                return StatusCode(401, "Email Address or password is invalid");
+            }
+            return Ok(sessionModel);
+
+        }
+
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         [Route("create")]
         public async Task<ActionResult> Create(UserDto userDto)
@@ -23,6 +39,7 @@ namespace Academio.API.Controllers
             return Ok(user);
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpGet]
         [Route("get")]
         public async Task<ActionResult> Get(int id)
@@ -31,6 +48,7 @@ namespace Academio.API.Controllers
             return Ok(data);
         }
 
+        [Authorize(Roles = "Administrator, User")]
         [HttpGet]
         [Route("getAll")]
         public async Task<ActionResult> GetAll()
@@ -38,7 +56,8 @@ namespace Academio.API.Controllers
             var data = await _userService.GetAll();
             return Ok(data);
         }
-
+       
+        [Authorize(Roles = "Administrator")]
         [HttpDelete]
         [Route("delete")]
         public async Task<ActionResult> Delete(int id)
@@ -51,6 +70,7 @@ namespace Academio.API.Controllers
             return NotFound();
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpPut]
         [Route("update")]
         public async Task<ActionResult> Update(UserDto userDto)
@@ -60,6 +80,7 @@ namespace Academio.API.Controllers
             return Ok(user);
         }
 
+        [Authorize(Roles = "Administrator, User")]
         [HttpPut]
         [Route("changeAccountPreferences")]
         public async Task<ActionResult> ChangeAccountPreferences(UserDto userDto)

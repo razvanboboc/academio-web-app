@@ -46,9 +46,12 @@ namespace Academio.API
             // Services 
             services.AddScoped<AcademioDbContext>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserRoleService, UserRoleService>();
 
             // Repositories
             services.AddScoped<IUserRepository<User>, UserRepository>();
+            services.AddScoped<IRoleRepository<Role>, RoleRepository>();
+            services.AddScoped<IUserRoleRepository<UserRole>, UserRoleRepository>();
             
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
