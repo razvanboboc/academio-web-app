@@ -1,4 +1,5 @@
-﻿CREATE PROCEDURE [dbo].[spGetAllCommunities]
+﻿
+CREATE PROCEDURE [dbo].[spGetAllCommunities]
 
 AS
 begin

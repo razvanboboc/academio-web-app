@@ -51,9 +51,24 @@ namespace Academio.Services.Services
             return communityDto;
         }
 
-        public Task<CommunityDto> GetAll()
+        public async Task<IEnumerable<CommunityDto>> GetAll()
         {
-            throw new NotImplementedException();
+            var communityDtos = new List<CommunityDto>();
+            var communities =  await _communityRepository.GetAll(@"spGetAllCommunities");
+            foreach(var community in communities)
+            {
+                var communityDto = new CommunityDto()
+                {
+                    Id = community.Id,
+                    Name = community.Name,
+                    Description = community.Description,
+                    Guidelines = community.Guidelines,
+                    Wiki = community.Wiki,
+                    DateCreated = community.DateCreated
+                };
+                communityDtos.Add(communityDto);
+            }
+            return communityDtos;
         }
 
         public async Task<CommunityDto> GetCommunityByName(string communityName)
@@ -71,13 +86,7 @@ namespace Academio.Services.Services
                 Wiki = existingCommunity.Wiki, 
                 DateCreated = existingCommunity.DateCreated,
             };
-
             return communityDto;
-        }
-
-        Task<IEnumerable<CommunityDto>> ICommunityService.GetAll()
-        {
-            throw new NotImplementedException();
         }
     }
 }
