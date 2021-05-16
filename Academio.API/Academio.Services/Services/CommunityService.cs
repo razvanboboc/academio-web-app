@@ -73,6 +73,10 @@ namespace Academio.Services.Services
             var dynamicParameters = new DynamicParameters();
             dynamicParameters.Add("@Id", id);
             var community = await _communityRepository.Get(dynamicParameters, @"spGetCommunityById");
+            if(community == null)
+            {
+                return null;
+            }
             var communityDto = new CommunityDto()
             {
                 Id = community.Id,

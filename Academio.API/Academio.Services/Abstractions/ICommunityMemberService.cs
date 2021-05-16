@@ -1,4 +1,5 @@
 ﻿using Academio.DataAccess.Entities;
+using Academio.DTOs.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,6 +9,7 @@ namespace Academio.Services.Abstractions
 {
     public interface ICommunityMemberService
     {
-        Task<CommunityMember> Add(int communityId, int userId, int communityRoleId);
+        Task<CommunityMemberDto> Add(int communityId, int userId, int communityRoleId);
+        Task<CommunityMemberDto> AddRegularMember(CommunityDto communityDto);
     }
 }
