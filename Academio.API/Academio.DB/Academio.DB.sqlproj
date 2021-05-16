@@ -96,5 +96,7 @@
     <Build Include="dbo\Procedures\Community\spAddCommunity.sql" />
     <Build Include="dbo\Procedures\Community\spGetCommunityByName.sql" />
     <Build Include="dbo\Procedures\Community\spGetAllCommunities.sql" />
+    <Build Include="dbo\Procedures\Community\spGetCommunityById.sql" />
+    <Build Include="dbo\Procedures\Community\spDeleteCommunityById.sql" />
   </ItemGroup>
 </Project>

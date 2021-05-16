@@ -41,13 +41,16 @@ namespace Academio.API.Controllers
         }
 
         //[Authorize(Roles = "Administrator, User")]
-        [HttpGet]
-        [Route("get")]
-        public async Task<ActionResult> Get(int id)
+        [HttpDelete]
+        [Route("delete")]
+        public async Task<ActionResult> Delete(int id)
         {
-            var data = await _communityService.Get(id);
-            return Ok(data);
+            var community = await _communityService.Delete(id);
+            if (community != null)
+            {
+                return Ok(community);
+            }
+            return NotFound();
         }
-
     }
 }

@@ -51,6 +51,23 @@ namespace Academio.Services.Services
             return communityDto;
         }
 
+        public async Task<CommunityDto> Delete(int id)
+        {
+            var dynamicParameters = new DynamicParameters();
+            dynamicParameters.Add("@Id", id);
+            var deletedCommunity = await _communityRepository.Delete(dynamicParameters, @"spDeleteCommunityById");
+            var communityDto = new CommunityDto()
+            {
+                Id = deletedCommunity.Id,
+                Name = deletedCommunity.Name,
+                Description = deletedCommunity.Description,
+                Guidelines = deletedCommunity.Guidelines,
+                Wiki = deletedCommunity.Wiki,
+                DateCreated = deletedCommunity.DateCreated
+            };
+            return communityDto;
+        }
+
         public async Task<CommunityDto> Get(int id)
         {
             var dynamicParameters = new DynamicParameters();
@@ -93,6 +110,11 @@ namespace Academio.Services.Services
             var dynamicParameters = new DynamicParameters();
             dynamicParameters.Add("@Name", communityName);
             var existingCommunity = await _communityRepository.GetCommunityByName(dynamicParameters, @"spGetCommunityByName");
+            
+            if(existingCommunity == null)
+            {
+                return null;
+            }
 
             var communityDto = new CommunityDto()
             {
