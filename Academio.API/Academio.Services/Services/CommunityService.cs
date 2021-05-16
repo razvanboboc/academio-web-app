@@ -51,6 +51,23 @@ namespace Academio.Services.Services
             return communityDto;
         }
 
+        public async Task<CommunityDto> Get(int id)
+        {
+            var dynamicParameters = new DynamicParameters();
+            dynamicParameters.Add("@Id", id);
+            var community = await _communityRepository.Get(dynamicParameters, @"spGetCommunityById");
+            var communityDto = new CommunityDto()
+            {
+                Id = community.Id,
+                Name = community.Name,
+                Description = community.Description,
+                Guidelines = community.Guidelines,
+                Wiki = community.Wiki,
+                DateCreated = community.DateCreated
+            };
+            return communityDto;
+        }
+
         public async Task<IEnumerable<CommunityDto>> GetAll()
         {
             var communityDtos = new List<CommunityDto>();

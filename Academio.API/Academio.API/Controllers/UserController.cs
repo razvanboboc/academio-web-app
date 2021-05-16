@@ -39,7 +39,7 @@ namespace Academio.API.Controllers
             return Ok(user);
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator, User")]
         [HttpGet]
         [Route("get")]
         public async Task<ActionResult> Get(int id)

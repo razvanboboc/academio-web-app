@@ -11,5 +11,6 @@ namespace Academio.Services.Abstractions
         Task<CommunityDto> Add(CommunityDto communityDto);
         Task<CommunityDto> GetCommunityByName(string communityName);
         Task<IEnumerable<CommunityDto>> GetAll();
+        Task<CommunityDto> Get(int id);
     }
 }

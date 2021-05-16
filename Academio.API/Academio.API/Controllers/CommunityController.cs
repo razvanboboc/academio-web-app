@@ -39,5 +39,15 @@ namespace Academio.API.Controllers
             var data = await _communityService.GetAll();
             return Ok(data);
         }
+
+        //[Authorize(Roles = "Administrator, User")]
+        [HttpGet]
+        [Route("get")]
+        public async Task<ActionResult> Get(int id)
+        {
+            var data = await _communityService.Get(id);
+            return Ok(data);
+        }
+
     }
 }
