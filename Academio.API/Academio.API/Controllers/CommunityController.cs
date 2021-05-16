@@ -52,5 +52,33 @@ namespace Academio.API.Controllers
             }
             return NotFound();
         }
+
+        //[Authorize(Roles = "Administrator")]
+        [HttpPut]
+        [Route("update")]
+        public async Task<ActionResult> Update(CommunityDto communityDto)
+        {
+
+            var community = await _communityService.Update(communityDto);
+            if(community != null)
+            {
+                return Ok(community);
+            }
+            return StatusCode(501, "You are not authorized to change the community details.");
+        }
+
+        //[Authorize(Roles = "Administrator")]
+        [HttpPut]
+        [Route("access")]
+        public async Task<ActionResult> Access(CommunityDto communityDto)
+        {
+
+            var community = await _communityService.Update(communityDto);
+            if (community != null)
+            {
+                return Ok(community);
+            }
+            return StatusCode(501, "You are not authorized to change the community details.");
+        }
     }
 }

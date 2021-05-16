@@ -12,6 +12,6 @@ namespace Academio.DTOs.DTOs
         public string Guidelines { get; set; }
         public string Wiki { get; set; }
         public DateTime DateCreated { get; set; }
-        public UserDto CommunityCreator { get; set; }
+        public UserDto User { get; set; }
     }
 }

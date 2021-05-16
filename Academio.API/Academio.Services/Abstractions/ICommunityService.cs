@@ -13,5 +13,6 @@ namespace Academio.Services.Abstractions
         Task<IEnumerable<CommunityDto>> GetAll();
         Task<CommunityDto> Get(int id);
         Task<CommunityDto> Delete(int id);
+        Task<CommunityDto> Update(CommunityDto communityDto);
     }
 }

@@ -38,7 +38,7 @@ namespace Academio.Services.Services
             var addedCommunity = await _communityRepository.Add(dynamicParameters, @"spAddCommunity");
             
             var role = await _communityRoleService.GetCommunityRoleByName("Moderator");
-            var inserted = await _communityMemberService.Add(addedCommunity.Id, communityDto.CommunityCreator.Id, role.Id);
+            var inserted = await _communityMemberService.Add(addedCommunity.Id, communityDto.User.Id, role.Id);
             
             if(inserted == null)
             {
@@ -126,6 +126,33 @@ namespace Academio.Services.Services
                 DateCreated = existingCommunity.DateCreated,
             };
             return communityDto;
+        }
+
+        public async Task<CommunityDto> Update(CommunityDto communityDto)
+        {
+            if(communityDto.User.CommunityRole != "Moderator")
+            {
+                return null;
+            }
+
+            var dynamicParameters = new DynamicParameters();
+            dynamicParameters.Add("@Id", communityDto.Id);
+            dynamicParameters.Add("@Description", communityDto.Description);
+            dynamicParameters.Add("@Guidelines", communityDto.Guidelines);
+            dynamicParameters.Add("@Wiki", communityDto.Wiki);
+            var updatedCommunity = await _communityRepository.Update(dynamicParameters, @"spUpdateCommunity");
+
+            var updatedCommunityDto = new CommunityDto()
+            {
+                Id = updatedCommunity.Id,
+                Name = updatedCommunity.Name,
+                Description = updatedCommunity.Description,
+                Guidelines = updatedCommunity.Guidelines,
+                Wiki = updatedCommunity.Wiki,
+                DateCreated = updatedCommunity.DateCreated
+            };
+
+            return updatedCommunityDto;
         }
     }
 }
