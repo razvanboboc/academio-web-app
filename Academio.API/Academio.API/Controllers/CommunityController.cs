@@ -14,9 +14,10 @@ namespace Academio.API.Controllers
     public class CommunityController : ControllerBase
     {
         private readonly ICommunityService _communityService;
-        public CommunityController(ICommunityService communityService)
-        {
+        private readonly ICommunityRoleService _communityRoleService;
+        public CommunityController(ICommunityService communityService, ICommunityRoleService communityRoleService)        {
             _communityService = communityService;
+            _communityRoleService = communityRoleService;
         }
         //[Authorize(Roles = "Administrator, User")]
         [HttpPost]
@@ -68,17 +69,17 @@ namespace Academio.API.Controllers
         }
 
         //[Authorize(Roles = "Administrator")]
-        [HttpPut]
+        [HttpGet]
         [Route("access")]
-        public async Task<ActionResult> Access(CommunityDto communityDto)
+        public async Task<ActionResult> Access(int userId, int communityId)
         {
 
-            var community = await _communityService.Update(communityDto);
-            if (community != null)
+            var userCommunityRole = await _communityRoleService.GetCommunityRoleOfUser(userId, communityId);
+            if (userCommunityRole != null)
             {
-                return Ok(community);
+                return Ok(userCommunityRole);
             }
-            return StatusCode(501, "You are not authorized to change the community details.");
+            return StatusCode(501, "You are not authorized to access this Community.");
         }
     }
 }

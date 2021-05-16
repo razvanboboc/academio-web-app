@@ -23,5 +23,13 @@ namespace Academio.Services.Services
             dynamicParameters.Add("@CommunityRoleName", communityRoleName);
             return _communityRoleRepository.GetCommunityRoleByName(dynamicParameters, @"spGetCommunityRoleByName");
         }
+
+        public Task<CommunityRole> GetCommunityRoleOfUser(int userId, int communityId)
+        {
+            var dynamicParameters = new DynamicParameters();
+            dynamicParameters.Add("@UserId", userId);
+            dynamicParameters.Add("@CommunityId", communityId);
+            return _communityRoleRepository.GetCommunityRoleByName(dynamicParameters, @"spGetCommunityRoleOfUser");
+        }
     }
 }

@@ -9,5 +9,6 @@ namespace Academio.DataAccess.Abstractions
     public interface ICommunityRoleRepository<CommunityRole> : IBaseRepository<CommunityRole>
     {
         Task<CommunityRole> GetCommunityRoleByName(DynamicParameters dynamicParameters, string storedProcedure);
+        Task<CommunityRole> GetCommunityRoleByUserId(DynamicParameters dynamicParameters, string storedProcedure);
     }
 }

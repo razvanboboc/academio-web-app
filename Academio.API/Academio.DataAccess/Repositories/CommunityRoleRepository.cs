@@ -24,5 +24,15 @@ namespace Academio.DataAccess.Repositories
                 return await connection.QuerySingleOrDefaultAsync<CommunityRole>(storedProcedure, dynamicParameters, commandType: CommandType.StoredProcedure);
             }
         }
+
+        public async Task<CommunityRole> GetCommunityRoleByUserId(DynamicParameters dynamicParameters, string storedProcedure)
+        {
+            using (var connection = _dbContext.connection())
+            {
+                connection.Open();
+
+                return await connection.QuerySingleOrDefaultAsync<CommunityRole>(storedProcedure, dynamicParameters, commandType: CommandType.StoredProcedure);
+            }
+        }
     }
 }

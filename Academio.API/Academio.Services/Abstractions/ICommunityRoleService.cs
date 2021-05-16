@@ -10,5 +10,6 @@ namespace Academio.Services.Abstractions
     public interface ICommunityRoleService
     {
         Task<CommunityRole> GetCommunityRoleByName(string communityRoleName);
+        Task<CommunityRole> GetCommunityRoleOfUser(int userId, int communityId);
     }
 }
