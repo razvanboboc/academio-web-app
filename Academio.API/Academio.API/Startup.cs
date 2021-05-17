@@ -50,6 +50,7 @@ namespace Academio.API
             services.AddScoped<ICommunityService, CommunityService>();
             services.AddScoped<ICommunityRoleService, CommunityRoleService>();
             services.AddScoped<ICommunityMemberService, CommunityMemberService>();
+            services.AddScoped<IPostService, PostService>();
 
 
             // Repositories
@@ -59,6 +60,8 @@ namespace Academio.API
             services.AddScoped<ICommunityRepository<Community>, CommunityRepository>();
             services.AddScoped<ICommunityRoleRepository<CommunityRole>, CommunityRoleRepository>();
             services.AddScoped<ICommunityMemberRepository<CommunityMember>, CommunityMemberRepository>();
+            services.AddScoped<IPostRepository<Post>, PostRepository>();
+
             
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
