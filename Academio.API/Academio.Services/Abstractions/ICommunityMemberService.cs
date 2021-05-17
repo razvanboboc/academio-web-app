@@ -10,6 +10,7 @@ namespace Academio.Services.Abstractions
     public interface ICommunityMemberService
     {
         Task<CommunityMemberDto> Add(int communityId, int userId, int communityRoleId);
-        Task<CommunityMemberDto> AddRegularMember(CommunityDto communityDto);
+        Task<CommunityMemberDto> JoinCommunity(int userId, int communityId);
+        Task<CommunityMemberDto> LeaveCommunity(int userId, int communityId);
     }
 }

@@ -37,11 +37,11 @@ namespace Academio.Services.Services
             return communityMemberDto;
         }
         
-        public async Task<CommunityMemberDto> AddRegularMember(CommunityDto communityDto)
+        public async Task<CommunityMemberDto> JoinCommunity(int userId, int communityId)
         {
             var communityRole = await _communityRoleService.GetCommunityRoleByName("Member");
 
-            var newRegularMember = await Add(communityDto.Id, communityDto.User.Id, communityRole.Id);
+            var newRegularMember = await Add(communityId, userId, communityRole.Id);
 
             if(newRegularMember == null)
             {
@@ -53,6 +53,22 @@ namespace Academio.Services.Services
                 CommunityId = newRegularMember.CommunityId,
                 CommunityRoleId = newRegularMember.CommunityRoleId,
                 UserId = newRegularMember.UserId
+            };
+            return communityMemberDto;
+        }
+
+        public async Task<CommunityMemberDto> LeaveCommunity(int userId, int communityId)
+        {
+            var dynamicParameters = new DynamicParameters();
+            dynamicParameters.Add("@UserId", userId);
+            dynamicParameters.Add("@CommunityId", communityId);
+            var deletedMember = await _communityMemberRepository.Delete(dynamicParameters, @"spDeleteCommunityMember");
+            
+            var communityMemberDto = new CommunityMemberDto()
+            {
+                CommunityId = deletedMember.CommunityId,
+                CommunityRoleId = deletedMember.CommunityRoleId,
+                UserId = deletedMember.UserId
             };
             return communityMemberDto;
         }

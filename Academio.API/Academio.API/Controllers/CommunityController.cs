@@ -72,18 +72,18 @@ namespace Academio.API.Controllers
         }
 
         //[Authorize(Roles = "Administrator")]
-        [HttpGet]
-        [Route("access")]
-        public async Task<ActionResult> Access(int userId, int communityId)
-        {
-
-            var userCommunityRole = await _communityRoleService.GetCommunityRoleOfUser(userId, communityId);
-            if (userCommunityRole != null)
+            [HttpGet]
+            [Route("access")]
+            public async Task<ActionResult> Access(int userId, int communityId)
             {
-                return Ok(userCommunityRole);
+
+                var userCommunityRole = await _communityRoleService.GetCommunityRoleOfUser(userId, communityId);
+                if (userCommunityRole != null)
+                {
+                    return Ok(userCommunityRole);
+                }
+                return StatusCode(501, "You are not authorized to access this Community.");
             }
-            return StatusCode(501, "You are not authorized to access this Community.");
-        }
 
         //[Authorize(Roles = "Administrator, User")]
         [HttpGet]
@@ -96,19 +96,6 @@ namespace Academio.API.Controllers
                 return Ok(data);
             }
             return StatusCode(501, "This community does not exist.");
-        }
-
-        //[Authorize(Roles = "Administrator, User")]
-        [HttpPost]
-        [Route("join")]
-        public async Task<ActionResult> Join(CommunityDto communityDto)
-        {
-            var data = await _communityMemberService.AddRegularMember(communityDto);
-            if (data != null)
-            {
-                return Ok(data);
-            }
-            return StatusCode(501, "Failed to add new regular member.");
         }
     }
 }
