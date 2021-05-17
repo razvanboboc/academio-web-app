@@ -60,6 +60,11 @@
     <Folder Include="dbo\Procedures" />
     <Folder Include="dbo\Tables" />
     <Folder Include="dbo\Procedures\User" />
+    <Folder Include="dbo\Procedures\UserRole" />
+    <Folder Include="dbo\Procedures\Role" />
+    <Folder Include="dbo\Procedures\CommunityRole" />
+    <Folder Include="dbo\Procedures\CommunityMember" />
+    <Folder Include="dbo\Procedures\Community" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\User.sql" />
@@ -78,5 +83,21 @@
     <Build Include="dbo\Procedures\User\spAddUser.sql" />
     <Build Include="dbo\Procedures\User\spGetAllUsers.sql" />
     <Build Include="dbo\Procedures\User\spGetUserById.sql" />
+    <Build Include="dbo\Procedures\UserRole\spGetRolesByUserId.sql" />
+    <Build Include="dbo\Procedures\User\spUpdateUser.sql" />
+    <Build Include="dbo\Procedures\User\spDeleteUser.sql" />
+    <Build Include="dbo\Procedures\User\spChangeAccountPreferences.sql" />
+    <Build Include="dbo\Procedures\Role\spGetRoleByName.sql" />
+    <Build Include="dbo\Procedures\UserRole\spUpdateUserRole.sql" />
+    <Build Include="dbo\Procedures\UserRole\spAddUserRole.sql" />
+    <Build Include="dbo\Procedures\User\spGetUserByEmailOrUsername.sql" />
+    <Build Include="dbo\Procedures\CommunityRole\spGetCommunityRoleByName.sql" />
+    <Build Include="dbo\Procedures\CommunityMember\spAddCommunityMember.sql" />
+    <Build Include="dbo\Procedures\Community\spAddCommunity.sql" />
+    <Build Include="dbo\Procedures\Community\spGetCommunityByName.sql" />
+    <Build Include="dbo\Procedures\Community\spGetAllCommunities.sql" />
+    <Build Include="dbo\Procedures\Community\spGetCommunityById.sql" />
+    <Build Include="dbo\Procedures\Community\spDeleteCommunityById.sql" />
+    <Build Include="dbo\Procedures\Community\spUpdateCommunity.sql" />
   </ItemGroup>
 </Project>

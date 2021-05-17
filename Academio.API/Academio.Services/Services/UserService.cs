@@ -44,6 +44,11 @@ namespace Academio.Services.Services
             {
                 var role = await _userRoleService.GetRoleByName(userDto.Role);
 
+                if(role == null)
+                {
+                    throw new Exception("This role does not exist.");
+                }
+
                 await _userRoleService.AddUserRole(addedUser.Id, role.Id);
             }
 

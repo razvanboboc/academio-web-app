@@ -14,5 +14,6 @@ namespace Academio.DTOs.DTOs
         public string LastName { get; set; }
         public DateTime DateJoined { get; set; }
         public string Role { get; set; }
+        public string CommunityRole { get; set; }
     }
 }

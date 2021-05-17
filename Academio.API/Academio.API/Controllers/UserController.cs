@@ -30,7 +30,7 @@ namespace Academio.API.Controllers
 
         }
 
-        [Authorize(Roles = "Administrator")]
+        //[Authorize(Roles = "Administrator")]
         [HttpPost]
         [Route("create")]
         public async Task<ActionResult> Create(UserDto userDto)
@@ -39,7 +39,7 @@ namespace Academio.API.Controllers
             return Ok(user);
         }
 
-        [Authorize(Roles = "Administrator")]
+        //[Authorize(Roles = "Administrator, User")]
         [HttpGet]
         [Route("get")]
         public async Task<ActionResult> Get(int id)
@@ -48,7 +48,7 @@ namespace Academio.API.Controllers
             return Ok(data);
         }
 
-        [Authorize(Roles = "Administrator, User")]
+        //[Authorize(Roles = "Administrator, User")]
         [HttpGet]
         [Route("getAll")]
         public async Task<ActionResult> GetAll()
@@ -57,7 +57,7 @@ namespace Academio.API.Controllers
             return Ok(data);
         }
        
-        [Authorize(Roles = "Administrator")]
+        //[Authorize(Roles = "Administrator")]
         [HttpDelete]
         [Route("delete")]
         public async Task<ActionResult> Delete(int id)
@@ -70,7 +70,7 @@ namespace Academio.API.Controllers
             return NotFound();
         }
 
-        [Authorize(Roles = "Administrator")]
+        //[Authorize(Roles = "Administrator")]
         [HttpPut]
         [Route("update")]
         public async Task<ActionResult> Update(UserDto userDto)
@@ -80,7 +80,7 @@ namespace Academio.API.Controllers
             return Ok(user);
         }
 
-        [Authorize(Roles = "Administrator, User")]
+        //[Authorize(Roles = "Administrator, User")]
         [HttpPut]
         [Route("changeAccountPreferences")]
         public async Task<ActionResult> ChangeAccountPreferences(UserDto userDto)
