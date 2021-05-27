@@ -25,7 +25,7 @@ namespace Influencers.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Data Source=DESKTOP-MKTUAUF\\SQLEXPRESS;Initial Catalog=Influencers;Integrated Security=True;");
+                optionsBuilder.UseSqlServer("Data Source=LAPTOP-K538KFGH;Initial Catalog=Influencers;Integrated Security=True;MultipleActiveResultSets=True");
             }
         }
 
