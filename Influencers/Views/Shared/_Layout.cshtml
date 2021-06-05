@@ -14,7 +14,7 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-light " style=" background-color:#f1f1f1">
             <a class="navbar-brand" asp-area="" asp-controller="Article" asp-action="Index">
-                <img src="~/Images/logo4.png" alt="Sample Photo" />
+                <img src="~/Images/logoacademio4.png" alt="Sample Photo" />
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -29,7 +29,7 @@
 
 
                     <li class="nav-item user-action-button @Html.IsSelected(actions: "JoinInfluencers", controllers: "Author")">
-                        <a class="nav-link text-dark" href="@Url.Action("JoinInfluencers", "Author")">Join Influencers</a>
+                        <a class="nav-link text-dark" href="@Url.Action("JoinInfluencers", "Author")">Join Academio</a>
                     </li>
 
 
@@ -44,7 +44,7 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div>
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -52,7 +52,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2020 - Influencers - <a asp-area="" asp-controller="Article" asp-action="Index">Homepage</a>
+            &copy; 2021 - Academio - <a asp-area="" asp-controller="Article" asp-action="Index">Homepage</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
