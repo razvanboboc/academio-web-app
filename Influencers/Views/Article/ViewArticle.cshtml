@@ -32,11 +32,12 @@
         <p>
             @Html.DisplayFor(model => Model.Article.Content)
         </p>
-        <a asp-action="EditArticle" asp-controller="Article" asp-route-id="@Model.Article.Id">Edit</a>
         @foreach (var tag in Model.Tags)
         {
-            <span>@tag.Name</span>
+            <a href="@Url.Action("Index", "Article", new { flag = tag.Name })" class="badge badge-pill badge-primary">@tag.Name</a>
         }
+        <br />
+        <a asp-action="EditArticle" asp-controller="Article" asp-route-id="@Model.Article.Id">Edit</a>
     </div>
 
 
