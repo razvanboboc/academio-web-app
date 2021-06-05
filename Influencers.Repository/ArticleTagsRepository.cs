@@ -16,7 +16,7 @@ namespace Influencers.Repository
         }
 
 
-        public IEnumerable<Tags> GetTagsOfArticleById(int articleId)
+        public IEnumerable<Tag> GetTagsOfArticleById(int articleId)
         {
             return dbContext.ArticleTags.Where(a => a.ArticleId == articleId).Select(t => t.Tag).AsEnumerable();
         }

@@ -19,7 +19,7 @@ namespace Influencers.Models
         public virtual DbSet<ArticleTags> ArticleTags { get; set; }
         public virtual DbSet<Author> Author { get; set; }
         public virtual DbSet<Comment> Comment { get; set; }
-        public virtual DbSet<Tags> Tags { get; set; }
+        public virtual DbSet<Tag> Tags { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -102,7 +102,7 @@ namespace Influencers.Models
                     .HasConstraintName("FK__Comment__Author___4CA06362");
             });
 
-            modelBuilder.Entity<Tags>(entity =>
+            modelBuilder.Entity<Tag>(entity =>
             {
                 entity.Property(e => e.Name)
                     .HasMaxLength(255)

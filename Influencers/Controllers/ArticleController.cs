@@ -103,7 +103,7 @@ namespace Influencers.Controllers
                     articlesWithTags.Add(new ViewArticleViewModel { Article = article, Tags = tags });
                 }
 
-                return View(new ArticleListViewModel { Articles = articlesWithTags });
+                return View(new ArticleListViewModel { Articles = articlesWithTags, FilteredByTag = flag });
             }
             else 
             {

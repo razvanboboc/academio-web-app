@@ -7,6 +7,6 @@ namespace Influencers.BusinessLogic.ViewModels.ArticleViewModels
     public class ArticleListViewModel
     {
         public List<ViewArticleViewModel> Articles { get; set; }
-
+        public string FilteredByTag { get; set; }
     }
 }

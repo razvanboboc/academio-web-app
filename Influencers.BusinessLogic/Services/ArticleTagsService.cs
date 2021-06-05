@@ -15,11 +15,11 @@ namespace Influencers.BusinessLogic.Services
             this.articleTagsRepository = articleTagsRepository;
         }
 
-        public void Add(Tags tag, Article article)
+        public void Add(Tag tag, Article article)
         {
             articleTagsRepository.Add(new ArticleTags { Article = article, ArticleId = article.Id, Tag = tag, TagId = tag.Id});
         }
-        public IEnumerable<Tags> GetTagsOfArticleById(int articleId)
+        public IEnumerable<Tag> GetTagsOfArticleById(int articleId)
         {
             return articleTagsRepository.GetTagsOfArticleById(articleId);
         }

@@ -12,16 +12,37 @@
 }
 
 .vote-container {
-    width: 2.5%; 
+    width: 4%; 
     float:left;
 }
+
+.sort-container {
+    overflow: auto;
+    border: 1px gray solid;
+    padding: 50px;
+    margin: 20px 0px 20px 20px;
+    border-radius: 8px;
+    content: "";
+    clear: both;
+}
+
+.sidebar-container {
+    overflow: auto;
+    border: 1px gray solid;
+    padding: 50px;
+    margin: 20px 20px 20px 0px;
+    border-radius: 8px;
+    content: "";
+    clear: both;
+}
+
 .post-container {
     word-wrap: break-word;
     overflow: auto;
     border: 1px gray solid;
     padding: 50px;
-    margin: 20px;
-    border-radius:8px;
+    margin: 20px 0px 20px 20px;
+    border-radius: 8px;
 }
 
 .post-container2 {
@@ -48,6 +69,7 @@
 
 .content {
     width: 96%; 
+    padding-left: 10px;
     float:right;
 }
 .number {
@@ -91,16 +113,6 @@ a {
     height: 300px; /* Should be removed. Only for demonstration */
 }
 
-.sort-container {
-
-    overflow: auto;
-    border: 1px gray solid;
-    padding: 50px;
-    margin: 20px;
-    border-radius: 8px;
-    content: "";
-    clear: both;
-}
 
 * {
     box-sizing: border-box;

@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 
 namespace Influencers.Repository
 {
-    public class TagRepository : BaseRepository<Tags>, ITagRepository
+    public class TagRepository : BaseRepository<Tag>, ITagRepository
     {
         public TagRepository(InfluencersContext dbContext) : base(dbContext)
         {
@@ -22,7 +22,7 @@ namespace Influencers.Repository
             {
                 if (!TagExists(hashtag.ToString()))
                 {
-                    Add(new Tags() { Name = hashtag.ToString() });
+                    Add(new Tag() { Name = hashtag.ToString() });
                 }
 
             }
@@ -30,12 +30,9 @@ namespace Influencers.Repository
 
         public MatchCollection FilterHashtags(string tags)
         {
-           
-
             MatchCollection hashtags = Regex.Matches(tags, @"[#]{1}[A-Za-z0-9-_]+\b");
 
             return hashtags;
-            
         }
 
         //public IEnumerable<Tags> FilterSearchedTags(string tags)
@@ -45,7 +42,7 @@ namespace Influencers.Repository
 
         //}
 
-        public Tags GetTagByName(string tagName)
+        public Tag GetTagByName(string tagName)
         {
             return dbContext.Tags.Where(t => t.Name == tagName).SingleOrDefault();
         }
@@ -61,6 +58,12 @@ namespace Influencers.Repository
             }
 
             return false;
+        }
+
+        public IEnumerable<Tag> GetMostUsedTags()
+        {
+            //var tags = dbContext.Tags.Where
+            return null; 
         }
     }
 }
