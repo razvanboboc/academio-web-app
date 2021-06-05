@@ -18,7 +18,7 @@ namespace Influencers.Repository
 
         public void AddTags(MatchCollection extractedHashtags)
         {
-            foreach(var hashtag in extractedHashtags)
+            foreach (var hashtag in extractedHashtags)
             {
                 if (!TagExists(hashtag.ToString()))
                 {
@@ -60,10 +60,19 @@ namespace Influencers.Repository
             return false;
         }
 
-        public IEnumerable<Tag> GetMostUsedTags()
+        public IEnumerable<Tuple<Tag, int>> GetMostUsedTags()
         {
-            //var tags = dbContext.Tags.Where
-            return null; 
+            var mostUsedTags = dbContext.Tags
+                .Select(t => new
+                {
+                    Tag = t,
+                    Count = t.Articles.Count()
+                })
+                .OrderByDescending(x => x.Count)
+                .AsEnumerable()
+                .Select(t => new Tuple<Tag, int>(t.Tag, t.Count));
+
+            return mostUsedTags;
         }
     }
 }

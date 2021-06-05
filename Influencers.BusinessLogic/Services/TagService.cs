@@ -35,5 +35,9 @@ namespace Influencers.BusinessLogic.Services
             return tagRepository.GetTagByName(tagName);
         }
 
+        public IEnumerable<Tuple<Tag, int>> GetMostUsedTags()
+        {
+            return tagRepository.GetMostUsedTags();
+        }
     }
 }

@@ -15,6 +15,6 @@ namespace Influencers.Repository.Abstractions
         bool TagExists(string tag);
 
         Tag GetTagByName(string tagName);
-        IEnumerable<Tag> GetMostUsedTags();
+        IEnumerable<Tuple<Tag, int>> GetMostUsedTags();
     }
 }

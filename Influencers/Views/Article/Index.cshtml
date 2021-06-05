@@ -103,13 +103,19 @@
     </div>
     <div class="col-4">
         <div class="w-auto p-3 sidebar-container container" style="background-color: #FCFCFC;">
-            <span>Hatz</span>
+            <h2>Most used Tags</h2>
+            @if(Model.MostUsedTags != null)
+            {
+                foreach(var tag in Model.MostUsedTags.Take(5))
+                {
+                    <p><a href="@Url.Action("Index", "Article", new { flag = tag.Item1.Name })" class="badge badge-pill badge-primary">@tag.Item1.Name</a></p>
+                }
+            }
         </div>
     </div>
 </div>
 
 @section scripts{
-
     <script>
         $(document).ready(function () {
 
@@ -127,7 +133,6 @@
                 @:}
 
             }
-
         });
     </script>
 }
