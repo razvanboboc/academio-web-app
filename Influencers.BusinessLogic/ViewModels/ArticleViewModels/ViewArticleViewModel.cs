@@ -12,5 +12,6 @@ namespace Influencers.BusinessLogic.ViewModels.ArticleViewModels
         public IEnumerable<Tag> Tags { get; set; }
 
         public IEnumerable<Comment> Comments { get; set; }
+        public IEnumerable<Tuple<Tag, int>> MostUsedTags { get; set; }
      }
 }

@@ -131,13 +131,15 @@ namespace Influencers.Controllers
         [HttpGet]
         public IActionResult ViewArticle([FromRoute]int id)
         {
+            var mostUsedTags = tagService.GetMostUsedTags();
+
             var article = articleService.GetArticleById(id);
 
             var tags = articleTagsService.GetTagsOfArticleById(id);
 
             var comments = commentService.GetCommentsByArticleId(id);
 
-            return View(new ViewArticleViewModel { Article = article , Tags = tags, Comments = comments});
+            return View(new ViewArticleViewModel { Article = article , Tags = tags, Comments = comments, MostUsedTags = mostUsedTags});
         }
 
         [HttpGet]

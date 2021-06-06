@@ -9,71 +9,110 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <link rel="stylesheet" href="~/css/homepage.css">
 </head>
-<div class="w-auto p-3 post-container2" style="background-color: #FCFCFC;">
-    <div class="vote vote-container">
-        <span id="article-up-@Model.Article.Id" class="up-vote" onclick="setValues(@Model.Article.Id, 1)"><i class="fas fa-angle-up"></i></span>
-        <span id="article-counter-@Model.Article.Id" class="number">@Html.DisplayFor(model => Model.Article.Votes)</span>
-        <span id="article-down-@Model.Article.Id" class="down-vote" onclick=" setValues(@Model.Article.Id, 2)"><i class="fas fa-angle-down"></i></span>
-    </div>
-    <div class="content" style=background-color: white;">
-        <div class="posted">
-            Posted by @Html.DisplayFor(model => Model.Article.Author.Nickname) on @Html.DisplayFor(model => Model.Article.AddedTime)
-        </div>
-        <h3>
-            @Html.DisplayFor(model => Model.Article.Title)
-        </h3>
-        @if (Model.Article.ImageSource != null)
-        {
-            <div class="d-flex justify-content-center">
-                <img src="~/ArticleImages/@Model.Article.ImageSource" style="max-width:100%; position:relative;"/>
+
+<div class="row">
+    <div class="col-8">
+        <div class="w-auto p-3 post-container2" style="background-color: #FCFCFC;">
+            <div class="vote vote-container">
+                <span id="article-up-@Model.Article.Id" class="up-vote" onclick="setValues(@Model.Article.Id, 1)"><i class="fas fa-angle-up"></i></span>
+                <span id="article-counter-@Model.Article.Id" class="number">@Html.DisplayFor(model => Model.Article.Votes)</span>
+                <span id="article-down-@Model.Article.Id" class="down-vote" onclick=" setValues(@Model.Article.Id, 2)"><i class="fas fa-angle-down"></i></span>
             </div>
+            <div class="content" style=background-color: white;">
+                <div class="posted">
+                    Posted by @Html.DisplayFor(model => Model.Article.Author.Nickname) on @Html.DisplayFor(model => Model.Article.AddedTime)
+                </div>
+                <h3>
+                    @Html.DisplayFor(model => Model.Article.Title)
+                </h3>
+                @if (Model.Article.ImageSource != null)
+                {
+                    <div class="d-flex justify-content-center">
+                        <img src="~/ArticleImages/@Model.Article.ImageSource" style="max-width:100%; position:relative;"/>
+                    </div>
 
-        }
-        <p>
-            @Html.DisplayFor(model => Model.Article.Content)
-        </p>
+                }
+                <p>
+                    @Html.DisplayFor(model => Model.Article.Content)
+                </p>
         
-        @foreach (var tag in Model.Tags)
-        {
-            <a href="@Url.Action("Index", "Article", new { flag = tag.Name })" class="badge badge-pill badge-primary">@tag.Name</a>
-        }
+                @foreach (var tag in Model.Tags)
+                {
+                    <a href="@Url.Action("Index", "Article", new { flag = tag.Name })" class="badge badge-pill badge-primary">@tag.Name</a>
+                }
+                <br />
+                <a asp-action="EditArticle" asp-controller="Article" asp-route-id="@Model.Article.Id">Edit</a>
+            </div>
+        </div>
+
         <br />
-        <a asp-action="EditArticle" asp-controller="Article" asp-route-id="@Model.Article.Id">Edit</a>
+
+        <a class="btn btn-primary btn-lg btn-block" href='@Url.Action("AddComment", "Comment", new { articleId =  Model.Article.Id })'>
+            Comment on this post
+        </a>
+        <br />
+        <p class="align-content-lg-end"style="right:20px; font-size: 30px;">@Model.Comments.Count() comments</p>
+        <hr />
+
+        @foreach (var comment in Model.Comments)
+        {
+
+            <div class="w-75 p-3 comment-container" style="background-color: #FCFCFC;">
+                <div class="vote vote-container">
+                    <span id="comment-up-@comment.Id" class="up-vote" onclick="setCommentValues(@comment.Id, 1)"><i class="fas fa-angle-up"></i></span>
+                    <span id="comment-counter-@comment.Id" class="number">@Html.DisplayFor(model => comment.Votes)</span>
+                    <span id="comment-down-@comment.Id" class="down-vote" onclick=" setCommentValues(@comment.Id, 2)"><i class="fas fa-angle-down"></i></span>
+                </div>
+                <div class="content" style=background-color: white;">
+                    <div class="posted">
+                        Posted by @Html.DisplayFor(model => comment.Author.Nickname) on @Html.DisplayFor(model => comment.AddedTime);
+                    </div>
+                    <p>
+                        @Html.DisplayFor(model => comment.Content)
+                    </p>
+                    @*<a asp-action="EditArticle" asp-controller="Article" asp-route-id="@Model.Article.Id">Edit</a>*@
+                </div>
+            </div>
+            <br/>
+        }
+   </div>
+    <div class="col-4">
+        <div class="w-auto p-3 sidebar-container container" style="background-color: #FCFCFC;">
+            <div class="d-flex justify-content-center">
+                <h2>Most used Tags</h2>
+            </div>
+            @if (Model.MostUsedTags != null)
+            {
+                var count = 1;
+                <table class="table table-borderless table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Tag</th>
+                            <th scope="col">Appearances</th>
+                        </tr>
+                    </thead>
+                    @foreach (var tag in Model.MostUsedTags.Take(5))
+                    {
+                        <tbody>
+                            <tr>
+                                <th scope="row">@count.</th>
+                                <td>
+                                    <a href="@Url.Action("Index", "Article", new { flag = tag.Item1.Name })" class="badge badge-pill badge-primary">@tag.Item1.Name</a>
+                                </td>
+                                <td>
+                                    <span>@tag.Item2</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                        count++;
+                    }
+                </table>
+            }
+        </div>
     </div>
-
-
 </div>
 
-<br />
-
-<a class="btn btn-primary btn-lg btn-block" href='@Url.Action("AddComment", "Comment", new { articleId =  Model.Article.Id })'>
-    Comment on this post
-</a>
-<br />
-<p class="align-content-lg-end"style="right:20px; font-size: 30px;">@Model.Comments.Count() comments</p>
-<hr />
-
-@foreach (var comment in Model.Comments)
-{
-
-    <div class="w-75 p-3 comment-container" style="background-color: #FCFCFC;">
-        <div class="vote vote-container">
-            <span id="comment-up-@comment.Id" class="up-vote" onclick="setCommentValues(@comment.Id, 1)"><i class="fas fa-angle-up"></i></span>
-            <span id="comment-counter-@comment.Id" class="number">@Html.DisplayFor(model => comment.Votes)</span>
-            <span id="comment-down-@comment.Id" class="down-vote" onclick=" setCommentValues(@comment.Id, 2)"><i class="fas fa-angle-down"></i></span>
-        </div>
-        <div class="content" style=background-color: white;">
-            <div class="posted">
-                Posted by @Html.DisplayFor(model => comment.Author.Nickname) on @Html.DisplayFor(model => comment.AddedTime);
-            </div>
-            <p>
-                @Html.DisplayFor(model => comment.Content)
-            </p>
-            @*<a asp-action="EditArticle" asp-controller="Article" asp-route-id="@Model.Article.Id">Edit</a>*@
-        </div>
-    </div>
-    <br/>
-}
 
 @section scripts{
 
