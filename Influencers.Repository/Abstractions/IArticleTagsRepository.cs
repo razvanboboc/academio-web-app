@@ -7,7 +7,7 @@ namespace Influencers.Repository.Abstractions
 {
     public interface IArticleTagsRepository : IRepository<ArticleTags>
     {
-        IEnumerable<Tags> GetTagsOfArticleById(int articleId);
+        IEnumerable<Tag> GetTagsOfArticleById(int articleId);
 
 
     }

@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace Influencers.Repository.Abstractions
 {
-    public interface ITagRepository : IRepository<Tags>
+    public interface ITagRepository : IRepository<Tag>
     {
         MatchCollection FilterHashtags(string tags);
 
@@ -14,7 +14,7 @@ namespace Influencers.Repository.Abstractions
 
         bool TagExists(string tag);
 
-        Tags GetTagByName(string tagName);
-
+        Tag GetTagByName(string tagName);
+        IEnumerable<Tuple<Tag, int>> GetMostUsedTags();
     }
 }

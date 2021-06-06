@@ -9,8 +9,9 @@ namespace Influencers.BusinessLogic.ViewModels.ArticleViewModels
     {
         public Article Article { get; set; }
 
-        public IEnumerable<Tags> Tags { get; set; }
+        public IEnumerable<Tag> Tags { get; set; }
 
         public IEnumerable<Comment> Comments { get; set; }
+        public IEnumerable<Tuple<Tag, int>> MostUsedTags { get; set; }
      }
 }

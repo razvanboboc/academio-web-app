@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 
 namespace Influencers.Repository
 {
-    public class TagRepository : BaseRepository<Tags>, ITagRepository
+    public class TagRepository : BaseRepository<Tag>, ITagRepository
     {
         public TagRepository(InfluencersContext dbContext) : base(dbContext)
         {
@@ -18,11 +18,11 @@ namespace Influencers.Repository
 
         public void AddTags(MatchCollection extractedHashtags)
         {
-            foreach(var hashtag in extractedHashtags)
+            foreach (var hashtag in extractedHashtags)
             {
                 if (!TagExists(hashtag.ToString()))
                 {
-                    Add(new Tags() { Name = hashtag.ToString() });
+                    Add(new Tag() { Name = hashtag.ToString() });
                 }
 
             }
@@ -30,12 +30,9 @@ namespace Influencers.Repository
 
         public MatchCollection FilterHashtags(string tags)
         {
-           
-
             MatchCollection hashtags = Regex.Matches(tags, @"[#]{1}[A-Za-z0-9-_]+\b");
 
             return hashtags;
-            
         }
 
         //public IEnumerable<Tags> FilterSearchedTags(string tags)
@@ -45,7 +42,7 @@ namespace Influencers.Repository
 
         //}
 
-        public Tags GetTagByName(string tagName)
+        public Tag GetTagByName(string tagName)
         {
             return dbContext.Tags.Where(t => t.Name == tagName).SingleOrDefault();
         }
@@ -61,6 +58,21 @@ namespace Influencers.Repository
             }
 
             return false;
+        }
+
+        public IEnumerable<Tuple<Tag, int>> GetMostUsedTags()
+        {
+            var mostUsedTags = dbContext.Tags
+                .Select(t => new
+                {
+                    Tag = t,
+                    Count = t.Articles.Count()
+                })
+                .OrderByDescending(x => x.Count)
+                .AsEnumerable()
+                .Select(t => new Tuple<Tag, int>(t.Tag, t.Count));
+
+            return mostUsedTags;
         }
     }
 }

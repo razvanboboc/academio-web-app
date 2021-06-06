@@ -15,7 +15,7 @@ namespace Influencers.BusinessLogic.Services
             this.tagRepository = tagRepositoryy;
         }
 
-        public IEnumerable<Tags> GetAll()
+        public IEnumerable<Tag> GetAll()
         {
             return tagRepository.GetAll();
         }
@@ -30,10 +30,14 @@ namespace Influencers.BusinessLogic.Services
             tagRepository.AddTags(extractedHashtags);
         }
 
-        public Tags GetTagByName(string tagName)
+        public Tag GetTagByName(string tagName)
         {
             return tagRepository.GetTagByName(tagName);
         }
 
+        public IEnumerable<Tuple<Tag, int>> GetMostUsedTags()
+        {
+            return tagRepository.GetMostUsedTags();
+        }
     }
 }

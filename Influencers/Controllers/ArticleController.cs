@@ -44,6 +44,8 @@ namespace Influencers.Controllers
         [HttpGet]
         public IActionResult Index(string flag)
         {
+            var mostUsedTags = tagService.GetMostUsedTags();
+
             if (flag == null || flag =="top" || flag == "new" || flag =="hot" || flag == "old")
             {
                 var articles = articleService.GetAll();
@@ -83,7 +85,8 @@ namespace Influencers.Controllers
                         articlesWithTags = articlesWithTags.OrderBy(vm => vm.Article.AddedTime).ToList();
                         break;
                 };
-                return View(new ArticleListViewModel { Articles = articlesWithTags });
+
+                return View(new ArticleListViewModel { Articles = articlesWithTags, MostUsedTags = mostUsedTags });
             }
             else if (flag.Contains('#'))
             {
@@ -103,7 +106,7 @@ namespace Influencers.Controllers
                     articlesWithTags.Add(new ViewArticleViewModel { Article = article, Tags = tags });
                 }
 
-                return View(new ArticleListViewModel { Articles = articlesWithTags });
+                return View(new ArticleListViewModel { Articles = articlesWithTags, FilteredByTag = flag, MostUsedTags = mostUsedTags });
             }
             else 
             {
@@ -120,7 +123,7 @@ namespace Influencers.Controllers
                     articlesWithTags.Add(new ViewArticleViewModel { Article = article, Tags = tags });
                 }
 
-                return View(new ArticleListViewModel { Articles = articlesWithTags });
+                return View(new ArticleListViewModel { Articles = articlesWithTags, MostUsedTags = mostUsedTags });
             }
 
         }
@@ -128,13 +131,15 @@ namespace Influencers.Controllers
         [HttpGet]
         public IActionResult ViewArticle([FromRoute]int id)
         {
+            var mostUsedTags = tagService.GetMostUsedTags();
+
             var article = articleService.GetArticleById(id);
 
             var tags = articleTagsService.GetTagsOfArticleById(id);
 
             var comments = commentService.GetCommentsByArticleId(id);
 
-            return View(new ViewArticleViewModel { Article = article , Tags = tags, Comments = comments});
+            return View(new ViewArticleViewModel { Article = article , Tags = tags, Comments = comments, MostUsedTags = mostUsedTags});
         }
 
         [HttpGet]
