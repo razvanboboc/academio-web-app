@@ -1,4 +1,5 @@
-﻿using Influencers.Models;
+﻿using Influencers.BusinessLogic.DTOs;
+using Influencers.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,7 +12,7 @@ namespace Influencers.BusinessLogic.ViewModels.ArticleViewModels
 
         public IEnumerable<Tag> Tags { get; set; }
 
-        public IEnumerable<Comment> Comments { get; set; }
+        public IEnumerable<CommentDto> Comments { get; set; }
         public IEnumerable<Tuple<Tag, int>> MostUsedTags { get; set; }
      }
 }

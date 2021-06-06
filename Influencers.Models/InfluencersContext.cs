@@ -91,6 +91,8 @@ namespace Influencers.Models
 
                 entity.Property(e => e.AuthorId).HasColumnName("Author_Id");
 
+                entity.Property(e => e.ParentCommentId).HasColumnName("ParentCommentId");
+
                 entity.HasOne(d => d.Article)
                     .WithMany(p => p.Comment)
                     .HasForeignKey(d => d.ArticleId)

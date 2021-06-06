@@ -62,9 +62,10 @@
     word-wrap: break-word;
     overflow: auto;
     border: 1px gray solid;
-    padding: 50px;
-    /*margin: 5px;*/
+    padding: 16px 16px 16px 16px;
+    margin-bottom: 16px;
     border-radius: 8px;
+    background-color: #FCFCFC;
 }
 
 .post-container:hover {

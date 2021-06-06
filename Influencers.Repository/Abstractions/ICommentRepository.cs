@@ -9,7 +9,5 @@ namespace Influencers.Repository.Abstractions
     {
         IEnumerable<Comment> GetCommentsByArticleId(int id);
         public void UpdateCommentVotes(int commentId, int flag);
-
-
     }
 }

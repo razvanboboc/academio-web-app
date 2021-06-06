@@ -136,7 +136,7 @@ namespace Influencers.Models.Migrations
                     b.ToTable("Comment");
                 });
 
-            modelBuilder.Entity("Influencers.Models.Tag", b =>
+            modelBuilder.Entity("Influencers.Models.Tags", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -169,7 +169,7 @@ namespace Influencers.Models.Migrations
                         .HasConstraintName("FK__ArticleTa__Artic__3E52440B")
                         .IsRequired();
 
-                    b.HasOne("Influencers.Models.Tag", "Tag")
+                    b.HasOne("Influencers.Models.Tags", "Tag")
                         .WithMany("Articles")
                         .HasForeignKey("TagId")
                         .HasConstraintName("FK__ArticleTa__Tag_I__3F466844")

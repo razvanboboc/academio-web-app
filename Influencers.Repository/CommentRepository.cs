@@ -20,6 +20,8 @@ namespace Influencers.Repository
             return dbContext.Comment.Where(comment => comment.ArticleId == id).Include(comment => comment.Author).AsEnumerable();
         }
 
+
+
         public void UpdateCommentVotes(int commentId, int flag)
         {
             var comment = dbContext.Comment.Where(comment => comment.Id == commentId).SingleOrDefault();

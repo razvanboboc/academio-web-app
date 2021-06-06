@@ -24,9 +24,9 @@ namespace Influencers.Controllers
             this.authorService = authorService;
         }
         [HttpGet]
-        public IActionResult AddComment(int articleId)
+        public IActionResult AddComment(int articleId, int? parentCommentId)
         {
-            return View(new AddCommentViewModel { ArticleId = articleId });
+            return View(new AddCommentViewModel { ArticleId = articleId, CommentId = parentCommentId });
         }
 
         [HttpPost]
@@ -46,8 +46,7 @@ namespace Influencers.Controllers
 
                 var author = authorService.GetAuthorByEmail(model.Email);
 
-                commentService.Add(article, author, model.Content);
-
+                commentService.Add(article, author, model.Content, model.CommentId);
             }
 
             return Redirect(Url.Action("ViewArticle", "Article", new { id = model.ArticleId }));
