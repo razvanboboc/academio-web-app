@@ -32,6 +32,7 @@
         <p>
             @Html.DisplayFor(model => Model.Article.Content)
         </p>
+        
         @foreach (var tag in Model.Tags)
         {
             <a href="@Url.Action("Index", "Article", new { flag = tag.Name })" class="badge badge-pill badge-primary">@tag.Name</a>

@@ -95,7 +95,14 @@
                         <a href="@Url.Action("Index", "Article", new { flag = tag.Name })" class="badge badge-pill badge-primary">@tag.Name</a>
                     }
                     <br />
-                    <a asp-action="EditArticle" asp-controller="Article" asp-route-id="@article.Article.Id">Edit  </a>
+                    <div class="d-flex flex-row">
+                        <div class="action-button-container">
+                            <a asp-action="EditArticle" asp-controller="Article" asp-route-id="@article.Article.Id">Edit</a>
+                        </div>
+                        <div class="action-button-container">
+                            <a asp-action="ViewArticle" asp-route-id="@article.Article.Id" asp-controller="Article">Comment</a>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -103,13 +110,36 @@
     </div>
     <div class="col-4">
         <div class="w-auto p-3 sidebar-container container" style="background-color: #FCFCFC;">
-            <h2>Most used Tags</h2>
-            @if(Model.MostUsedTags != null)
+            <div class="d-flex justify-content-center">
+                <h2>Most used Tags</h2>
+            </div>
+            @if (Model.MostUsedTags != null)
             {
-                foreach(var tag in Model.MostUsedTags.Take(5))
-                {
-                    <p><a href="@Url.Action("Index", "Article", new { flag = tag.Item1.Name })" class="badge badge-pill badge-primary">@tag.Item1.Name</a></p>
-                }
+                var count = 1;
+                <table class="table table-borderless table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Tag</th>
+                            <th scope="col">Appearances</th>
+                        </tr>
+                    </thead>
+                    @foreach (var tag in Model.MostUsedTags.Take(5))
+                    {
+                    <tbody>
+                        <tr>
+                            <th scope="row">@count.</th>
+                            <td>
+                                <a href="@Url.Action("Index", "Article", new { flag = tag.Item1.Name })" class="badge badge-pill badge-primary">@tag.Item1.Name</a>
+                            </td>
+                            <td>
+                                <span>@tag.Item2</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                    count++;
+                    }
+                </table>
             }
         </div>
     </div>
