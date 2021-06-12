@@ -165,41 +165,75 @@
 </div>
 
 @functions {
+    int spacing = 0;
     private void showNestedComments(IEnumerable<CommentDto> commentDtos, int? parentId)
     {
         @foreach (var comment in commentDtos)
         {
-            @if (comment.Comment.ParentCommentId == parentId)
+
+            @if (comment.Comment.ParentCommentId == null)
             {
-                if (parentId != null)
-                {
-                    <div style="width:25px;"></div>
-                }
-                <div class="flex-fill comment-container">
-                    <div class="vote vote-container">
-                        <span id="comment-up-@comment.Comment.Id" class="up-vote" onclick="setCommentValues(@comment.Comment.Id, 1)"><i class="fas fa-angle-up"></i></span>
-                        <span id="comment-counter-@comment.Comment.Id" class="number">@Html.DisplayFor(model => comment.Comment.Votes)</span>
-                        <span id="comment-down-@comment.Comment.Id" class="down-vote" onclick=" setCommentValues(@comment.Comment.Id, 2)"><i class="fas fa-angle-down"></i></span>
-                    </div>
-                    <div class="content" style=background-color: white;">
-                        <div class="posted">
-                            Posted by @Html.DisplayFor(model => comment.Comment.Author.Nickname) on @Html.DisplayFor(model => comment.Comment.AddedTime);
+                <div class="d-flex flex-column">
+                    <div class="d-flex flex-row">
+                        <div class="flex-fill comment-container">
+                            <div class="vote vote-container">
+                                <span id="comment-up-@comment.Comment.Id" class="up-vote" onclick="setCommentValues(@comment.Comment.Id, 1)"><i class="fas fa-angle-up"></i></span>
+                                <span id="comment-counter-@comment.Comment.Id" class="number">@Html.DisplayFor(model => comment.Comment.Votes)</span>
+                                <span id="comment-down-@comment.Comment.Id" class="down-vote" onclick=" setCommentValues(@comment.Comment.Id, 2)"><i class="fas fa-angle-down"></i></span>
+                            </div>
+                            <div class="content" style=background-color: white;">
+                                <div class="posted">
+                                    Posted by @Html.DisplayFor(model => comment.Comment.Author.Nickname) on @Html.DisplayFor(model => comment.Comment.AddedTime);
+                                </div>
+                                <p>
+                                    @Html.DisplayFor(model => comment.Comment.Content)
+                                </p>
+                                <div>
+                                    <a href='@Url.Action("AddComment", "Comment", new { articleId =  Model.Article.Id, parentCommentId = comment.Comment.Id })'><i class='far fa-comment-alt' style='font-size:14px'></i> Reply</a>
+                                </div>
+                            </div>
                         </div>
-                        <p>
-                            @Html.DisplayFor(model => comment.Comment.Content)
-                        </p>
-                        <div>
-                            <a href='@Url.Action("AddComment", "Comment", new { articleId =  Model.Article.Id, parentCommentId = comment.Comment.Id })'><i class='far fa-comment-alt' style='font-size:14px'></i> Reply</a>
+                    </div>
+                    @if (comment.ChildComments.Count() != 0)
+                    {
+                        showNestedComments(comment.ChildComments, comment.Comment.Id);
+                    }
+
+                </div>
+            }
+            @if (comment.Comment.ParentCommentId == parentId && comment.Comment.ParentCommentId != null)
+            {
+                spacing += 30;
+                <div class="d-flex flex-row">
+                    @if (parentId != null)
+                    {
+                        <div style="width:@(spacing)px;"></div>
+                    }
+                    <div class="flex-fill comment-container">
+                        <div class="vote vote-container">
+                            <span id="comment-up-@comment.Comment.Id" class="up-vote" onclick="setCommentValues(@comment.Comment.Id, 1)"><i class="fas fa-angle-up"></i></span>
+                            <span id="comment-counter-@comment.Comment.Id" class="number">@Html.DisplayFor(model => comment.Comment.Votes)</span>
+                            <span id="comment-down-@comment.Comment.Id" class="down-vote" onclick=" setCommentValues(@comment.Comment.Id, 2)"><i class="fas fa-angle-down"></i></span>
+                        </div>
+                        <div class="content" style=background-color: white;">
+                            <div class="posted">
+                                Posted by @Html.DisplayFor(model => comment.Comment.Author.Nickname) on @Html.DisplayFor(model => comment.Comment.AddedTime);
+                            </div>
+                            <p>
+                                @Html.DisplayFor(model => comment.Comment.Content)
+                            </p>
+                            <div>
+                                <a href='@Url.Action("AddComment", "Comment", new { articleId =  Model.Article.Id, parentCommentId = comment.Comment.Id })'><i class='far fa-comment-alt' style='font-size:14px'></i> Reply</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-                if (comment.ChildComments.Count() != 0)
+                @if (comment.ChildComments.Count() != 0)
                 {
                     showNestedComments(comment.ChildComments, comment.Comment.Id);
+                    spacing -= 30;
                 }
             }
-            }
-
         }
     }
 }
