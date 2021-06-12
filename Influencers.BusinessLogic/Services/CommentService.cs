@@ -32,7 +32,7 @@ namespace Influencers.BusinessLogic.Services
                 {
                     var commentDto = new CommentDto()
                     {
-                        ParentComment = comment,
+                        Comment = comment,
                         ChildComments = CreateNestedComments(comments, comment.Id)
                     };
                     commentDtos.Add(commentDto);

@@ -55,33 +55,77 @@
         <p class="align-content-lg-end" style="right:20px; font-size: 30px;">@Model.Comments.Count() comments</p>
         <hr />
 
-        <div class="row">
-        @{ 
+        <div class="d-flex flex-column">
+            @{
                 showNestedComments(Model.Comments, null);
-        }
+            }
         </div>
 
-        @*@foreach (var comment in Model.Comments)
-        {
-            <div class="comment-container">
-                <div class="vote vote-container">
-                    <span id="comment-up-@comment.ParentComment.Id" class="up-vote" onclick="setCommentValues(@comment.ParentComment.Id, 1)"><i class="fas fa-angle-up"></i></span>
-                    <span id="comment-counter-@comment.ParentComment.Id" class="number">@Html.DisplayFor(model => comment.ParentComment.Votes)</span>
-                    <span id="comment-down-@comment.ParentComment.Id" class="down-vote" onclick=" setCommentValues(@comment.ParentComment.Id, 2)"><i class="fas fa-angle-down"></i></span>
-                </div>
-                <div class="content" style=background-color: white;">
-                    <div class="posted">
-                        Posted by @Html.DisplayFor(model => comment.ParentComment.Author.Nickname) on @Html.DisplayFor(model => comment.ParentComment.AddedTime);
+        @*@foreach (var comment in Model.Comments.Take(1))
+            {
+                <div class="d-flex flex-column">
+                    <div class="comment-container">
+                        <div class="vote vote-container">
+                            <span id="comment-up-@comment.ParentComment.Id" class="up-vote" onclick="setCommentValues(@comment.ParentComment.Id, 1)"><i class="fas fa-angle-up"></i></span>
+                            <span id="comment-counter-@comment.ParentComment.Id" class="number">@Html.DisplayFor(model => comment.ParentComment.Votes)</span>
+                            <span id="comment-down-@comment.ParentComment.Id" class="down-vote" onclick=" setCommentValues(@comment.ParentComment.Id, 2)"><i class="fas fa-angle-down"></i></span>
+                        </div>
+                        <div class="content" style=background-color: white;">
+                            <div class="posted">
+                                Posted by @Html.DisplayFor(model => comment.ParentComment.Author.Nickname) on @Html.DisplayFor(model => comment.ParentComment.AddedTime);
+                            </div>
+                            <p>
+                                @Html.DisplayFor(model => comment.ParentComment.Content)
+                            </p>
+                            <div>
+                                <a href='@Url.Action("AddComment", "Comment", new { articleId =  Model.Article.Id, parentCommentId = comment.ParentComment.Id })'><i class='far fa-comment-alt' style='font-size:14px'></i> Reply</a>
+                            </div>
+                        </div>
                     </div>
-                    <p>
-                        @Html.DisplayFor(model => comment.ParentComment.Content)
-                    </p>
+                    <div class="d-flex flex-row">
+                        <div style="width: 20px">hehe</div>
+                        <div class="flex-fill comment-container">
+                            <div class="vote vote-container">
+                                <span id="comment-up-@comment.ParentComment.Id" class="up-vote" onclick="setCommentValues(@comment.ParentComment.Id, 1)"><i class="fas fa-angle-up"></i></span>
+                                <span id="comment-counter-@comment.ParentComment.Id" class="number">@Html.DisplayFor(model => comment.ParentComment.Votes)</span>
+                                <span id="comment-down-@comment.ParentComment.Id" class="down-vote" onclick=" setCommentValues(@comment.ParentComment.Id, 2)"><i class="fas fa-angle-down"></i></span>
+                            </div>
+                            <div class="content" style=background-color: white;">
+                                <div class="posted">
+                                    Posted by @Html.DisplayFor(model => comment.ParentComment.Author.Nickname) on @Html.DisplayFor(model => comment.ParentComment.AddedTime);
+                                </div>
+                                <p>
+                                    @Html.DisplayFor(model => comment.ParentComment.Content)
+                                </p>
+                                <div>
+                                    <a href='@Url.Action("AddComment", "Comment", new { articleId =  Model.Article.Id, parentCommentId = comment.ParentComment.Id })'><i class='far fa-comment-alt' style='font-size:14px'></i> Reply</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div>
-                        <a href='@Url.Action("AddComment", "Comment", new { articleId =  Model.Article.Id, parentCommentId = comment.ParentComment.Id })'><i class='far fa-comment-alt' style='font-size:14px'></i> Reply</a>
+                        <div style="width: 40px">hehe</div>
+                        <div class="comment-container">
+                            <div class="vote vote-container">
+                                <span id="comment-up-@comment.ParentComment.Id" class="up-vote" onclick="setCommentValues(@comment.ParentComment.Id, 1)"><i class="fas fa-angle-up"></i></span>
+                                <span id="comment-counter-@comment.ParentComment.Id" class="number">@Html.DisplayFor(model => comment.ParentComment.Votes)</span>
+                                <span id="comment-down-@comment.ParentComment.Id" class="down-vote" onclick=" setCommentValues(@comment.ParentComment.Id, 2)"><i class="fas fa-angle-down"></i></span>
+                            </div>
+                            <div class="content" style=background-color: white;">
+                                <div class="posted">
+                                    Posted by @Html.DisplayFor(model => comment.ParentComment.Author.Nickname) on @Html.DisplayFor(model => comment.ParentComment.AddedTime);
+                                </div>
+                                <p>
+                                    @Html.DisplayFor(model => comment.ParentComment.Content)
+                                </p>
+                                <div>
+                                    <a href='@Url.Action("AddComment", "Comment", new { articleId =  Model.Article.Id, parentCommentId = comment.ParentComment.Id })'><i class='far fa-comment-alt' style='font-size:14px'></i> Reply</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        }*@
+            }*@
     </div>
     <div class="col-4">
         <div class="w-auto p-3 sidebar-container container" style="background-color: #FCFCFC;">
@@ -125,35 +169,37 @@
     {
         @foreach (var comment in commentDtos)
         {
-            @if (comment.ParentComment.ParentCommentId == parentId)
+            @if (comment.Comment.ParentCommentId == parentId)
             {
-                if(parentId != null) 
+                if (parentId != null)
                 {
-                    @*<div class="col-1">Hatz</div>*@
+                    <div style="width:25px;"></div>
                 }
                 <div class="flex-fill comment-container">
                     <div class="vote vote-container">
-                        <span id="comment-up-@comment.ParentComment.Id" class="up-vote" onclick="setCommentValues(@comment.ParentComment.Id, 1)"><i class="fas fa-angle-up"></i></span>
-                        <span id="comment-counter-@comment.ParentComment.Id" class="number">@Html.DisplayFor(model => comment.ParentComment.Votes)</span>
-                        <span id="comment-down-@comment.ParentComment.Id" class="down-vote" onclick=" setCommentValues(@comment.ParentComment.Id, 2)"><i class="fas fa-angle-down"></i></span>
+                        <span id="comment-up-@comment.Comment.Id" class="up-vote" onclick="setCommentValues(@comment.Comment.Id, 1)"><i class="fas fa-angle-up"></i></span>
+                        <span id="comment-counter-@comment.Comment.Id" class="number">@Html.DisplayFor(model => comment.Comment.Votes)</span>
+                        <span id="comment-down-@comment.Comment.Id" class="down-vote" onclick=" setCommentValues(@comment.Comment.Id, 2)"><i class="fas fa-angle-down"></i></span>
                     </div>
                     <div class="content" style=background-color: white;">
                         <div class="posted">
-                            Posted by @Html.DisplayFor(model => comment.ParentComment.Author.Nickname) on @Html.DisplayFor(model => comment.ParentComment.AddedTime);
+                            Posted by @Html.DisplayFor(model => comment.Comment.Author.Nickname) on @Html.DisplayFor(model => comment.Comment.AddedTime);
                         </div>
                         <p>
-                            @Html.DisplayFor(model => comment.ParentComment.Content)
+                            @Html.DisplayFor(model => comment.Comment.Content)
                         </p>
                         <div>
-                            <a href='@Url.Action("AddComment", "Comment", new { articleId =  Model.Article.Id, parentCommentId = comment.ParentComment.Id })'><i class='far fa-comment-alt' style='font-size:14px'></i> Reply</a>
+                            <a href='@Url.Action("AddComment", "Comment", new { articleId =  Model.Article.Id, parentCommentId = comment.Comment.Id })'><i class='far fa-comment-alt' style='font-size:14px'></i> Reply</a>
                         </div>
                     </div>
                 </div>
-                if(comment.ChildComments.Count() != 0)
+                if (comment.ChildComments.Count() != 0)
                 {
-                    showNestedComments(comment.ChildComments, comment.ParentComment.Id);
+                    showNestedComments(comment.ChildComments, comment.Comment.Id);
                 }
             }
+            }
+
         }
     }
 }
@@ -171,14 +217,14 @@
             @foreach(var comment in Model.Comments)
             {
 
-                @:if (Cookies.get(@comment.ParentComment.Id) == "1") {
-                    @:$(`#comment-up-${@comment.ParentComment.Id}`).css("color", "#3CBC8D");
-                    @:$(`#comment-down-${@comment.ParentComment.Id}`).css("color", "dimgray");
+                @:if (Cookies.get(@comment.Comment.Id) == "1") {
+                    @:$(`#comment-up-${@comment.Comment.Id}`).css("color", "#3CBC8D");
+                    @:$(`#comment-down-${@comment.Comment.Id}`).css("color", "dimgray");
                 @:}
 
-                @:if (Cookies.get(@comment.ParentComment.Id) == "0") {
-                    @:$(`#comment-up-${@comment.ParentComment.Id}`).css("color", "dimgray");
-                    @:$(`#comment-down-${@comment.ParentComment.Id}`).css("color", "#3CBC8D");
+                @:if (Cookies.get(@comment.Comment.Id) == "0") {
+                    @:$(`#comment-up-${@comment.Comment.Id}`).css("color", "dimgray");
+                    @:$(`#comment-down-${@comment.Comment.Id}`).css("color", "#3CBC8D");
                 @:}
 
             }

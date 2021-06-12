@@ -7,7 +7,7 @@ namespace Influencers.BusinessLogic.DTOs
 {
     public class CommentDto
     {
-        public Comment ParentComment { get; set; }
+        public Comment Comment { get; set; }
         public IEnumerable<CommentDto> ChildComments { get; set; }
     }
 }
