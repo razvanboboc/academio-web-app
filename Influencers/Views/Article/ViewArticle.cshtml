@@ -106,7 +106,7 @@
     {
         @foreach (var comment in commentDtos)
         {
-
+            commentDtos = commentDtos.OrderByDescending(c => c.Comment.AddedTime);
             @if (comment.Comment.ParentCommentId == null)
             {
                 <div class="d-flex flex-column">
