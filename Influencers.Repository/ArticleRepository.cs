@@ -42,7 +42,6 @@ namespace Influencers.Repository.Abstractions
             {
                 article.Content = article.Content.Substring(0, article.Content.Length/2);
             }
-
             return articles; 
         }
 
@@ -116,11 +115,6 @@ namespace Influencers.Repository.Abstractions
 
                 foreach (var articleTag in tagsOfArticle)
                 {
-                    //if (tags.Contains(articleTag.Tag.))
-                    //{
-                    //    filteredArticles.Add(article);
-                    //}
-
                     foreach(var tag in tags)
                     {
                         if (tag.ToString().Contains(articleTag.Tag.Name))

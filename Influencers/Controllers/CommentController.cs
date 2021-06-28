@@ -16,7 +16,8 @@ namespace Influencers.Controllers
         private readonly ArticleService articleService;
         private readonly AuthorService authorService;
 
-        public CommentController(ILogger<CommentController> logger, CommentService commmentService, ArticleService articleService, AuthorService authorService)
+        public CommentController(ILogger<CommentController> logger, CommentService commmentService, 
+                        ArticleService articleService, AuthorService authorService)
         {
             _logger = logger;
             this.commentService = commmentService;

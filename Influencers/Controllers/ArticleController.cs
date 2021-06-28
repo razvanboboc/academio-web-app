@@ -200,12 +200,6 @@ namespace Influencers.Controllers
         [HttpPost]
         public IActionResult EditArticle([FromForm]EditArticleViewModel model,int id)
         {
-            //if (!ModelState.IsValid)
-            //{
-
-            //    return View(model);
-            //}
-
             model.ArticleId = id;
 
             var authorExists = authorService.VerifyIfAuthorExistsByEmail(model.Email);
