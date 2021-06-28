@@ -63,7 +63,8 @@
     overflow: auto;
     border: 1px gray solid;
     padding: 16px 16px 16px 16px;
-    margin-bottom: 16px;
+    margin-top: 8px;
+    margin-bottom: 8px;
     border-radius: 8px;
     background-color: #FCFCFC;
 }
