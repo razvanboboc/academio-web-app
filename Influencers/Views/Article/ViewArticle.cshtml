@@ -133,7 +133,16 @@
                     @if (comment.ChildComments.Count() != 0)
                     {
                         spacing += 30;
-                        showNestedComments(comment.ChildComments, comment.Comment.Id);
+                        <div class="d-flex flex-row">
+                            <span class="badge badge-primary" onclick="hideReplies(@comment.Comment.Id)">
+                                Hide replies
+                            </span>
+                        </div>
+                        <div id="@comment.Comment.Id">
+                            @{
+                                showNestedComments(comment.ChildComments, comment.Comment.Id);
+                            }
+                        </div>
                         spacing -= 30;
                     }
 
@@ -168,7 +177,19 @@
                 @if (comment.ChildComments.Count() != 0)
                 {
                     spacing += 30;
-                    showNestedComments(comment.ChildComments, comment.Comment.Id);
+                    <div class="d-flex flex-row">
+                        <div style="width:@(spacing)px;"></div>
+                        <div class="flex-fill">
+                            <span class="badge badge-primary" onclick="hideReplies(@comment.Comment.Id)">
+                                Hide replies
+                            </span>
+                        </div>
+                    </div>
+                    <div id="@comment.Comment.Id">
+                        @{
+                            showNestedComments(comment.ChildComments, comment.Comment.Id);
+                        }
+                    </div>
                     spacing -= 30;
                 }
             }
@@ -180,6 +201,16 @@
 @section scripts{
 
     <script>
+        function hideReplies(commentId) {
+            console.log('commentId', commentId);
+            let replyContainer = document.getElementById(`${commentId}`);
+            if (replyContainer.style.display === "none") {
+                replyContainer.style.display = "block";
+                return;
+            }
+            replyContainer.style.display = "none"
+        }
+
         articleId = @Model.Article.Id;
 
         $(document).ready(colorArticleVotes(articleId));
