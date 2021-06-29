@@ -69,6 +69,12 @@
     background-color: #FCFCFC;
 }
 
+.vertical-line {
+    border-left: solid #808080d9;
+    padding-left: 11px;
+    margin-top: 4px;
+}
+
 .post-container:hover {
     border: 1px solid black;
     border-radius: 8px;

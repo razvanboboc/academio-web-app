@@ -101,12 +101,11 @@
 </div>
 
 @functions {
-    int spacing = 0;
     private void showNestedComments(IEnumerable<CommentDto> commentDtos, int? parentId)
     {
+        commentDtos = commentDtos.OrderByDescending(c => c.Comment.AddedTime);
         @foreach (var comment in commentDtos)
         {
-            commentDtos = commentDtos.OrderByDescending(c => c.Comment.AddedTime);
             @if (comment.Comment.ParentCommentId == null)
             {
                 <div class="d-flex flex-column">
@@ -132,29 +131,26 @@
                     </div>
                     @if (comment.ChildComments.Count() != 0)
                     {
-                        spacing += 30;
                         <div class="d-flex flex-row">
                             <span class="badge badge-primary" onclick="hideReplies(@comment.Comment.Id)">
                                 Hide replies
                             </span>
                         </div>
-                        <div id="@comment.Comment.Id">
-                            @{
-                                showNestedComments(comment.ChildComments, comment.Comment.Id);
-                            }
+                        <div class="d-flex flex-row" id="replyContainer-@comment.Comment.Id">
+                            <div class="vertical-line"></div>
+                            <div class="flex-fill d-flex flex-column">
+                                @{
+                                    showNestedComments(comment.ChildComments, comment.Comment.Id);
+                                }
+                            </div>
                         </div>
-                        spacing -= 30;
                     }
 
                 </div>
             }
             @if (comment.Comment.ParentCommentId == parentId && comment.Comment.ParentCommentId != null)
             {
-                <div class="d-flex flex-row">
-                    @if (parentId != null)
-                    {
-                        <div style="width:@(spacing)px;"></div>
-                    }
+                <div class="flex-fill">
                     <div class="flex-fill comment-container">
                         <div class="vote vote-container">
                             <span id="comment-up-@comment.Comment.Id" class="up-vote" onclick="setCommentValues(@comment.Comment.Id, 1)"><i class="fas fa-angle-up"></i></span>
@@ -176,21 +172,19 @@
                 </div>
                 @if (comment.ChildComments.Count() != 0)
                 {
-                    spacing += 30;
                     <div class="d-flex flex-row">
-                        <div style="width:@(spacing)px;"></div>
-                        <div class="flex-fill">
-                            <span class="badge badge-primary" onclick="hideReplies(@comment.Comment.Id)">
-                                Hide replies
-                            </span>
+                        <span class="badge badge-primary" onclick="hideReplies(@comment.Comment.Id)">
+                            Hide replies
+                        </span>
+                    </div>
+                    <div class="d-flex flex-row" id="replyContainer-@comment.Comment.Id">
+                        <div class="vertical-line"></div>
+                        <div class="flex-fill d-flex flex-column">
+                            @{
+                                showNestedComments(comment.ChildComments, comment.Comment.Id);
+                            }
                         </div>
                     </div>
-                    <div id="@comment.Comment.Id">
-                        @{
-                            showNestedComments(comment.ChildComments, comment.Comment.Id);
-                        }
-                    </div>
-                    spacing -= 30;
                 }
             }
         }
@@ -203,11 +197,13 @@
     <script>
         function hideReplies(commentId) {
             console.log('commentId', commentId);
-            let replyContainer = document.getElementById(`${commentId}`);
+            let replyContainer = document.getElementById(`replyContainer-${commentId}`);
             if (replyContainer.style.display === "none") {
+                replyContainer.classList.add('d-flex');
                 replyContainer.style.display = "block";
                 return;
             }
+            replyContainer.classList.remove('d-flex');
             replyContainer.style.display = "none"
         }
 
@@ -231,8 +227,8 @@
                 @:}
 
             }
-
         });
-    </script>
+
+    </script>   
 }
 
