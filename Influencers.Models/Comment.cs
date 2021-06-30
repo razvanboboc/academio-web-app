@@ -11,7 +11,7 @@ namespace Influencers.Models
         public string Content { get; set; }
         public DateTime? AddedTime { get; set; }
         public int Votes { get; set; }
-
+        public int? ParentCommentId { get; set; }
         public virtual Article Article { get; set; }
         public virtual Author Author { get; set; }
     }

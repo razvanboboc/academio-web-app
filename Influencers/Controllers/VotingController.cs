@@ -34,8 +34,6 @@ namespace Influencers.Controllers
 
                 var author = authorService.GetAuthorByArticleId(votingDto.ArticleId);
 
-                //authorService.UpdateAuthorPostVotes(author, votingDto.Flag);
-
                 authorService.UpdateAuthorVotes(author.Id);
 
                 return Ok(new { articleid = votingDto.ArticleId });
@@ -59,8 +57,6 @@ namespace Influencers.Controllers
 
                 var author = authorService.GetAuthorByCommentId(commentVoteDto.CommentId);
 
-                //authorService.UpdateAuthorPostVotes(author, commentVoteDto.Flag);
-                
                 authorService.UpdateAuthorVotes(author.Id);
 
                 return Ok(new { commentId = commentVoteDto.CommentId });

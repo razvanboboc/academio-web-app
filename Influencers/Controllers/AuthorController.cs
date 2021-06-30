@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,13 +14,11 @@ namespace Influencers.Controllers
     public class AuthorController : Controller
     {
         private readonly ILogger<ArticleController> _logger;
-        private readonly ArticleService articleService;
         private readonly AuthorService authorService;
 
-        public AuthorController(ILogger<ArticleController> logger, ArticleService articleService, AuthorService authorService)
+        public AuthorController(ILogger<ArticleController> logger, AuthorService authorService)
         {
             _logger = logger;
-            this.articleService = articleService;
             this.authorService = authorService;
         }
 
@@ -31,7 +29,7 @@ namespace Influencers.Controllers
         }
         [HttpGet]
         public IActionResult Ranking()
-        {
+        { 
             var authors = authorService.GetAll();
             var orderedAuthorsDescendingly = authorService.OrderAuthorsDescendingByVotes(authors);
             return View(new RankingViewModel { Authors = orderedAuthorsDescendingly });

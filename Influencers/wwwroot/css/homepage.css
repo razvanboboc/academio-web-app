@@ -62,9 +62,17 @@
     word-wrap: break-word;
     overflow: auto;
     border: 1px gray solid;
-    padding: 50px;
-    /*margin: 5px;*/
+    padding: 16px 16px 16px 16px;
+    margin-top: 8px;
+    margin-bottom: 8px;
     border-radius: 8px;
+    background-color: #FCFCFC;
+}
+
+.vertical-line {
+    border-left: solid #808080d9;
+    padding-left: 11px;
+    margin-top: 4px;
 }
 
 .post-container:hover {
@@ -135,3 +143,14 @@ textarea {
     font-size: 16px;
     resize: none;
 }
+
+.footer {
+    bottom: 0;
+    color: #707070;
+    /*height: 2em;*/
+    left: 0;
+    position: relative;
+    font-size: small;
+    width: 100%;
+}
+

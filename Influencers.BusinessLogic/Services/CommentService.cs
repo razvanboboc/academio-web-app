@@ -1,7 +1,9 @@
-﻿using Influencers.Models;
+﻿using Influencers.BusinessLogic.DTOs;
+using Influencers.Models;
 using Influencers.Repository.Abstractions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Influencers.BusinessLogic.Services
@@ -14,17 +16,44 @@ namespace Influencers.BusinessLogic.Services
         {
             this.commentRepository = commentRepository;
         }
-        public IEnumerable<Comment> GetCommentsByArticleId(int id)
+        public IEnumerable<CommentDto> GetCommentsByArticleId(int id)
         {
-            return commentRepository.GetCommentsByArticleId(id);
+            var comments = commentRepository.GetCommentsByArticleId(id).ToList();
+            var nestedComments = CreateNestedComments(comments, null);
+            return nestedComments;
         }
 
-        public void Add(Article article, Author author, string content)
+        public List<CommentDto> CreateNestedComments(List<Comment> comments, int? parentId)
+        {
+            List<CommentDto> commentDtos = new List<CommentDto>();
+            foreach(var comment in comments)
+            {
+                if(comment.ParentCommentId == parentId)
+                {
+                    var commentDto = new CommentDto()
+                    {
+                        Comment = comment,
+                        ChildComments = CreateNestedComments(comments, comment.Id)
+                    };
+                    commentDtos.Add(commentDto);
+                }
+            }
+            return commentDtos;
+        }
+
+        public void Add(Article article, Author author, string content,int? parentCommentId)
         {
             commentRepository.Add(new Comment
-            { Article = article, ArticleId = article.AuthorId, 
-                Author = author, AuthorId = author.Id, 
-                Content = content, AddedTime = DateTime.Now, Votes = 0 });
+            {
+                Article = article,
+                ArticleId = article.AuthorId,
+                Author = author,
+                AuthorId = author.Id,
+                Content = content,
+                AddedTime = DateTime.Now,
+                Votes = 0,
+                ParentCommentId = parentCommentId
+            });
         }
 
         public void UpdateCommentVotes(int commentId, int flag)

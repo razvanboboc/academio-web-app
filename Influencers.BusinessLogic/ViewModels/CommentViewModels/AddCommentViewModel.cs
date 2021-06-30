@@ -8,6 +8,7 @@ namespace Influencers.BusinessLogic.ViewModels.CommentViewModels
     public class AddCommentViewModel
     {
         public int ArticleId { get; set; }
+        public int? CommentId { get; set; }
 
         [Required(ErrorMessage = "Please input a valid email")]
         [StringLength(100)]
