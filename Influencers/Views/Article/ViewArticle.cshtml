@@ -196,7 +196,6 @@
 
     <script>
         function hideReplies(commentId) {
-            console.log('commentId', commentId);
             let replyContainer = document.getElementById(`replyContainer-${commentId}`);
             if (replyContainer.style.display === "none") {
                 replyContainer.classList.add('d-flex');
