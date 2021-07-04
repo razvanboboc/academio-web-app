@@ -53,7 +53,7 @@
             Comment on this post
         </a>
         <br />
-        <p class="align-content-lg-end" style="right:20px; font-size: 30px;">@Model.Comments.Count() comments</p>
+        <p id="number-comments" class="align-content-lg-end" style="right:20px; font-size: 30px;"></p>
         <hr />
 
         <div class="d-flex flex-column">
@@ -195,6 +195,11 @@
 @section scripts{
 
     <script>
+        $(document).ready(function () {
+            var numItems = $('.comment-container').length;
+            $('#number-comments').append(`${numItems} comments`);
+        });
+
         function hideReplies(commentId) {
             let replyContainer = document.getElementById(`replyContainer-${commentId}`);
             if (replyContainer.style.display === "none") {

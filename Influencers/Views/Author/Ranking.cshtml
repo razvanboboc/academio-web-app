@@ -19,9 +19,9 @@
                 @Html.DisplayName("Karma")
             </th>
 
-            <th>
+            @*<th>
                 @Html.DisplayName("Email")
-            </th>
+            </th>*@
         </tr>
     </thead>
     <tbody>
@@ -44,9 +44,9 @@
                     <td>
                         @Html.DisplayFor(model => item.Votes)
                     </td>
-                    <td>
+                    @*<td>
                         @Html.DisplayFor(model => item.Email)
-                    </td>
+                    </td>*@
                 </tr>
             }
         }
@@ -67,6 +67,8 @@
 
     th, td {
         padding: 8px 16px;
+        width: 50%;
+        text-align: left;
     }
 
     th {
